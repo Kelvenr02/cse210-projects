@@ -2,20 +2,21 @@ using System;
 
 public class Journal
 {
-    public List<Entry> _entries = new List<Entry>();
-
-    public void AddEntry()
+    private List<Entry> _entries;
+    public Journal()
     {
-        Entry newEntry = new Entry();
-        DateTime theCurrentTime = DateTime.Now;
-        string dateText = theCurrentTime.ToShortDateString();
-        newEntry._date = dateText;
-        newEntry._promptText = ""; // Continue from here
-        newEntry._entryText = "";""
+        _entries = new List<Entry>();
+    }
+    public void AddEntry(Entry newEntry)
+    {
+        _entries.Add(newEntry);
     }
     public void DisplayAll()
     {
-
+        foreach (Entry entry in _entries)
+        {
+            entry.Display();
+        }
     }
     public void SaveToFile(string file)
     {
