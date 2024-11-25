@@ -19,20 +19,21 @@ class Program
                     Console.Write("Your response: ");
                     string response = Console.ReadLine();
                     string date = DateTime.Now.ToShortDateString();
-                    Entry newEntry = new Entry
-                    {
-                        _promptText = prompt,
-                        _entryText = response,
-                        _date = date
-                    };
+                    Entry newEntry = new Entry(date, prompt, response);
                     journal.AddEntry(newEntry);
                     break;
                 case "2":
                     journal.DisplayAll();
                     break;
                 case "3":
+                    Console.Write("What is the filename? ");
+                    string file2 = Console.ReadLine();
+                    journal.LoadFromFile(file2);
                     break;
                 case "4":
+                    Console.Write("What is the filename? ");
+                    string file1 = Console.ReadLine();
+                    journal.SaveToFile(file1);
                     break;
                 case "5":
                     return;
