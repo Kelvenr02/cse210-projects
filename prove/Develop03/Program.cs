@@ -14,7 +14,7 @@ class Program
         Nevertheless, glory be to the Father, and I partook and finished my preparations unto the children of men.
         ";
         Scripture scripture = new Scripture(reference, text);;
-        Console.WriteLine(scripture.GetDisplayText()); // Provavelmente não necessario.
+        Console.WriteLine(scripture.GetDisplayText());
 
         while (!scripture.IsCompletelyHidden())
         {
