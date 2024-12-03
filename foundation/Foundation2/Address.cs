@@ -11,7 +11,7 @@ public class Address
 
     public Address(string street, string city, string state, int zipCode, string country)
     {
-        _street = street; // Verificar se posso tirar this.
+        _street = street;
         _city = city;
         _state = state;
         _zipCode = zipCode;
