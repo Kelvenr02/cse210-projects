@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 public class Activity
 {
-    string _name;
-    string _description;
-    int _duration;
+    private string _name;
+    private string _description;
+    private int _duration;
 
     public Activity(string name, string description, int duration)
     {
@@ -13,7 +13,11 @@ public class Activity
         _description = description;
         _duration = duration;
     }
-    
+
+    public int GetDuration()
+    {
+        return _duration;
+    }
     public void DisplayStartingMessage()
     {
         Console.WriteLine($"Welcome to the {_name}.");
@@ -24,7 +28,8 @@ public class Activity
         _duration = int.Parse(Console.ReadLine());
         Console.WriteLine("Prepare to begin...");
         ShowSpinner(3);
-        Run();
+        Console.WriteLine();
+        ShowCountDown(3);
     }
     public void DisplayEndingMessage()
     {
@@ -40,7 +45,7 @@ public class Activity
         }
         Console.WriteLine();
     }
-    public void ShowCountDown(int sconds)
+    public void ShowCountDown(int seconds)
     {
         for (int i = seconds; i > 0; i--)
         {
