@@ -1,11 +1,9 @@
-
 using System;
 using System.Collections.Generic;
-using System.Threading;
 
 public class ListingActivity : Activity
 {
-    private List<string> prompts = new List<string>
+    private readonly List<string> _prompts = new()
     {
         "What are some blessings in your life that you are grateful for?",
         "Who has made a positive impact on your life recently?",
@@ -24,22 +22,20 @@ public class ListingActivity : Activity
         "When was a time you felt guided in a decision you made?"
     };
 
+    public ListingActivity() : base("Listing Activity", "This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.") { }
 
-    public void Start()
+    protected override void Execute()
     {
-        Console.WriteLine("Welcome to the Listing Activity.");
-        Console.WriteLine();
-        Console.WriteLine("This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.");
-        Console.WriteLine();
-        SetDuration();
         Random random = new Random();
-        string prompt = prompts[random.Next(prompts.Count)];
-        Console.WriteLine("List as many responses you can to the following prompt:");
+        string prompt = _prompts[random.Next(_prompts.Count)];
+
+        Console.WriteLine("List as many responses as you can to the following prompt:");
         Console.WriteLine();
         Console.WriteLine($"--- {prompt} ---");
         Console.WriteLine();
         Console.Write("You may begin in: ");
         PauseWithCountdown(5);
+
         List<string> items = new List<string>();
         DateTime endTime = DateTime.Now.AddSeconds(_duration);
         while (DateTime.Now < endTime)
@@ -49,7 +45,7 @@ public class ListingActivity : Activity
             if (string.IsNullOrEmpty(input)) break;
             items.Add(input);
         }
+
         Console.WriteLine($"You listed {items.Count} items!");
-        ShowCompletionMessage("Listing");
     }
 }

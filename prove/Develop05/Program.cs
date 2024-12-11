@@ -15,30 +15,31 @@ class Program
             Console.Write("Select a choice from the menu: ");
             string choice = Console.ReadLine();
             Console.Clear();
-            if (choice == "1")
+
+            Activity activity = null;
+
+            switch (choice)
             {
-                BreathingActivity breathingActivity = new BreathingActivity();
-                breathingActivity.Start();
+                case "1":
+                    activity = new BreathingActivity();
+                    break;
+                case "2":
+                    activity = new ReflectingActivity();
+                    break;
+                case "3":
+                    activity = new ListingActivity();
+                    break;
+                case "4":
+                    Console.WriteLine("Thank you for using the program. Goodbye!");
+                    return;
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    Console.WriteLine("Press Enter to continue...");
+                    Console.ReadLine();
+                    continue;
             }
-            else if (choice == "2")
-            {
-                ReflectionActivity reflectionActivity = new ReflectionActivity();
-                reflectionActivity.Start();
-            }
-            else if (choice == "3")
-            {
-                ListingActivity listingActivity = new ListingActivity();
-                listingActivity.Start();
-            }
-            else if (choice == "4")
-            {
-                Console.WriteLine("Thank you for using the program. Goodbye!");
-                break;
-            }
-            else
-            {
-                Console.WriteLine("Invalid option. Please try again.");
-            }
+
+            activity?.Run();
         }
     }
 }

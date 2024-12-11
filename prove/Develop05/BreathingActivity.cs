@@ -1,16 +1,11 @@
 using System;
-using System.Threading;
 
 public class BreathingActivity : Activity
 {
-    public void Start()
-    {
-        Console.WriteLine("Welcome to the Breathing Activity.");
-        Console.WriteLine();
-        Console.WriteLine("This activity will help you relax by walking your through breathing in and out slowly. Clear your mind and focus on your breathing.");
-        Console.WriteLine();
-        SetDuration();
+    public BreathingActivity() : base("Breathing Activity", "This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.") { }
 
+    protected override void Execute()
+    {
         DateTime endTime = DateTime.Now.AddSeconds(_duration);
         while (DateTime.Now < endTime)
         {
@@ -20,7 +15,5 @@ public class BreathingActivity : Activity
             PauseWithCountdown(4);
             Console.WriteLine();
         }
-
-        ShowCompletionMessage("Breathing");
     }
 }
