@@ -1,29 +1,40 @@
 class SimpleGoal : Goal
 {
-    private bool _complete = false;
-    public override void CreateGoal(string name, string description, int points, bool complete, int completionNumber = 0, int currentNumber = 0, int bonusPoints = 0)
+    private bool _complete;
+
+    public override void CreateGoal(string name, string description, int points, bool complete = false, int completionNumber = 0, int currentNumber = 0, int bonusPoints = 0)
     {
-        SetGoalType("EternalGoal");
+        SetGoalType("SimpleGoal");
         SetName(name);
         SetDescription(description);
         SetPoints(points);
         _complete = complete;
     }
+
     public override void SetGoal()
     {
         SetGoalType("SimpleGoal");
         Console.Write("What is the name of your goal? ");
         SetName(Console.ReadLine());
+
         Console.Write("What is a short description of it? ");
         SetDescription(Console.ReadLine());
-        Console.Write("What is the ammount of points assosiated with this goal? ");
-        string stringPoints = Console.ReadLine();
-        int points = int.Parse(stringPoints);
-        SetPoints(points);
+
+        Console.Write("What is the amount of points associated with this goal? ");
+        if (int.TryParse(Console.ReadLine(), out int points))
+        {
+            SetPoints(points);
+        }
+        else
+        {
+            Console.WriteLine("Invalid points input. Setting points to 0.");
+            SetPoints(0);
+        }
     }
+
     public override int RecordProgress()
     {
-        if(!_complete)
+        if (!_complete)
         {
             _complete = true;
             return GetPoints();
@@ -34,32 +45,18 @@ class SimpleGoal : Goal
             return 0;
         }
     }
+
     public override void DisplayProgress()
     {
-        if(_complete)
-        {
-            Console.WriteLine($"[X] {GetName()} ({GetDescription()})");
-        }
-        else if(!_complete)
-        {
-            Console.WriteLine($"[ ] {GetName()} ({GetDescription()})");
-        }
+        string status = _complete ? "[X]" : "[ ]";
+        Console.WriteLine($"{status} {GetName()} ({GetDescription()})");
     }
+
     public override string SaveGoal()
-    {  
-        string goalFormat = GetGoalType();
-        goalFormat = (goalFormat + "," + GetName());
-        goalFormat = (goalFormat + "," + GetDescription());
-        goalFormat = (goalFormat + "," + GetPoints());
-        goalFormat = (goalFormat + "," + _complete);
-        return goalFormat;
-    }
-    public void SetComplete(bool complete)
     {
-        _complete = complete;
+        return $"{GetGoalType()},{GetName()},{GetDescription()},{GetPoints()},{_complete}";
     }
-    public bool GetComplete()
-    {
-        return _complete;
-    }
+
+    public void SetComplete(bool complete) => _complete = complete;
+    public bool GetComplete() => _complete;
 }
